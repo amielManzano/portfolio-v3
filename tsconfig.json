@@ -14,7 +14,10 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "jest"
+      "jest",
+      "svg",
+      "jpg",
+      "JPG"
     ],
     "paths": {
       "@/*": [
