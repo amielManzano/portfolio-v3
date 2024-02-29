@@ -1,9 +1,11 @@
 <template>
   <header>
     <nav>
-      <!-- <div v-if="isHomePage" /> -->
+      <div v-if="showMenu" class="menu-modal">
+        <menu-part @close="closeMenu" />
+      </div>
       <div class="menu animate__animated animate__backInLeft">
-        <img :src="menu" class="menu-img" alt="menu" />
+        <img :src="menu" class="menu-img" alt="menu" @click="openMenu" />
         <span>MENU</span>
       </div>
       <img :src="logo" class="logo animate__animated animate__backInRight" alt="logo" />
@@ -12,19 +14,32 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
+import MenuPart from "./Menu.vue";
 
 export default defineComponent({
   name: "HeaderPart",
+  components: {
+    MenuPart,
+  },
   data() {
     return {
       text: "sample",
       menu: require("@/assets/menu.svg"),
       logo: require("@/assets/logo.png"),
+      showMenu: false,
     };
   },
   computed: {
     isHomePage() {
       return this.$route.name === "home";
+    },
+  },
+  methods: {
+    openMenu() {
+      this.showMenu = true;
+    },
+    closeMenu() {
+      this.showMenu = false;
     },
   },
 });
@@ -40,6 +55,15 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+
+    .menu-modal {
+      height: 100dvh;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
     .menu {
       display: flex;

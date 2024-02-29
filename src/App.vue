@@ -17,6 +17,8 @@ import "animate.css";
   --black: #0b0c10;
   --light-blue: #66fcf1;
   --dark-green: #0e2d2c;
+  --semi-dark-green: #45a29f;
+  --washed-white: #c4c6c8;
 }
 
 * {
