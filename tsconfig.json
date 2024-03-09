@@ -17,7 +17,8 @@
       "jest",
       "svg",
       "jpg",
-      "JPG"
+      "JPG",
+      "png"
     ],
     "paths": {
       "@/*": [

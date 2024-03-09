@@ -18,7 +18,7 @@
         <span class="text">About Me</span>
       </div>
     </div>
-    <div class="tab tab-3 animate__animated animate__slideInRight animate__delay-1s">
+    <div class="tab tab-3 animate__animated animate__slideInRight animate__delay-1s"  @click="openPage('projects')">
       <div class="info">
         <img :src="projects" alt="logo" />
         <span class="text">Projects</span>
@@ -44,13 +44,16 @@ export default defineComponent({
     openMenu() {
       this.showMenu = true;
     },
-    openPage(page) {
+    openPage(page: string) {
       switch (page) {
         case "home":
           this.$router.push("/");
           break;
         case "about me":
           this.$router.push("/about");
+          break;
+        case "projects":
+          this.$router.push("/projects");
           break;
       }
 

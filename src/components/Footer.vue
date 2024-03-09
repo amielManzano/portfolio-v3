@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer :class="!isHomePage ? 'full-width' : 'absolute'">
     <div />
     <div class="container animate__animated animate__backInUp">
       <img v-for="(icon, i) in icons" :key="i" :src="icon" />
@@ -22,6 +22,11 @@ export default defineComponent({
       ],
     };
   },
+  computed: {
+    isHomePage() {
+      return this.$route.name === "home";
+    },
+  },
 });
 </script>
 <style lang="scss" scoped>
@@ -29,17 +34,26 @@ footer {
   width: 100%;
   display: grid;
   grid-template-columns: 50vw 50vw;
-  position: absolute;
+  position: sticky;
   bottom: 0;
 
   .container {
-    padding: 47px;
+    padding: 47px 47px 20px 47px;
 
     img {
       margin: 0 14px;
       cursor: pointer;
     }
   }
+}
+
+.full-width {
+  grid-template-columns: 1fr;
+}
+
+.absolute {
+  position: absolute;
+  bottom: 0;
 }
 
 @media (max-width: 768px) {

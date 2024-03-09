@@ -5,8 +5,14 @@
         <menu-part @close="closeMenu" />
       </div>
       <div class="menu animate__animated animate__backInLeft">
-        <img :src="menu" class="menu-img" alt="menu" @click="openMenu" />
-        <span>MENU</span>
+        <img
+          :src="menu"
+          :class="!isHomePage ? 'white-img' : ''"
+          class="menu-img"
+          alt="menu"
+          @click="openMenu"
+        />
+        <span :class="!isHomePage ? 'white-t' : ''">MENU</span>
       </div>
       <img :src="logo" class="logo animate__animated animate__backInRight" alt="logo" />
     </nav>
@@ -84,6 +90,15 @@ header {
         letter-spacing: 0em;
         text-align: center;
         color: var(--black);
+      }
+
+      .white-t {
+        color: white;
+      }
+
+      .white-img {
+        -webkit-filter: invert(100%);
+        filter: invert(100%);
       }
     }
 
