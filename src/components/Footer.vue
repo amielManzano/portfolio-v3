@@ -1,5 +1,5 @@
 <template>
-  <footer :class="!isHomePage ? 'full-width' : 'absolute'">
+  <footer :class="!isHomePage || isMobile ? 'full-width' : 'absolute'">
     <div />
     <div class="container animate__animated animate__backInUp">
       <img v-for="(icon, i) in icons" :key="i" :src="icon" />
@@ -20,11 +20,23 @@ export default defineComponent({
         require("@/assets/linkedin.svg"),
         require("@/assets/gmail.svg"),
       ],
+      isMobile: window.innerWidth < 768,
     };
   },
   computed: {
     isHomePage() {
       return this.$route.name === "home";
+    },
+  },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
+  unmount() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  methods: {
+    handleResize() {
+      this.isMobile = window.innerWidth < 768;
     },
   },
 });

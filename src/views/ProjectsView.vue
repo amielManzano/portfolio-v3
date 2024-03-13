@@ -4,10 +4,10 @@
       <h1 class="title">My Works</h1>
       <div class="sub-title-container">
         <p class="sub-title">
-          Welcome to my Projects Page, where you will find a meticulously curated
-          selection of more than 20 diverse and innovative undertakings. Each project
-          represents a testament to my commitment to excellence and showcases a versatile
-          skill set honed through years of dedicated work.
+          Welcome to my Projects Page, where you will find a meticulously
+          curated selection of more than 20 diverse and innovative undertakings.
+          Each project represents a testament to my commitment to excellence and
+          showcases a versatile skill set honed through years of dedicated work.
         </p>
       </div>
     </div>
@@ -34,7 +34,11 @@
                 <img :src="view" />
               </a>
               <div class="labels-container">
-                <div v-for="(label, index) in project.labels" :key="index" class="label">
+                <div
+                  v-for="(label, index) in project.labels"
+                  :key="index"
+                  class="label"
+                >
                   <span>{{ label }}</span>
                 </div>
               </div>
@@ -87,8 +91,7 @@ export default defineComponent({
           title: "Photography V2 UI Design",
           subTitle:
             "Elevate your visual storytelling with a UI design that puts your photography in the spotlight, capturing every moment with precision and style.",
-          link:
-            "https://www.figma.com/file/XcL4ynbdAcSYMNBB7dIJFm/Photography-Website?type=design&node-id=0-1&mode=design&t=TYqlgRjZD1ERV0xp-0",
+          link: "https://www.figma.com/file/XcL4ynbdAcSYMNBB7dIJFm/Photography-Website?type=design&node-id=0-1&mode=design&t=TYqlgRjZD1ERV0xp-0",
           image: require("@/assets/projects/photographyV2Design.png"),
           labels: ["Figma"],
         },
@@ -105,8 +108,7 @@ export default defineComponent({
           title: "CSV download",
           subTitle:
             "A Shopify app where you can download CSV of any item by setting the template that you like.",
-          link:
-            "https://apps.shopify.com/csv-download-1?surface_detail=gf.e&surface_inter_position=1&surface_intra_position=3&surface_type=search",
+          link: "https://apps.shopify.com/csv-download-1?surface_detail=gf.e&surface_inter_position=1&surface_intra_position=3&surface_type=search",
           image: require("@/assets/projects/csvDownload.png"),
           labels: ["Shopify", "ReactJS", "sql", "AWS", "NodeJS"],
         },
@@ -115,8 +117,7 @@ export default defineComponent({
           title: "Bulk Images Upload",
           subTitle:
             "A Shopify app where you can easily upload product images all at once in a ZIP file. If you create a folder using the handle or product ID, the product image will be automatically determined and registered as a product.",
-          link:
-            "https://apps.shopify.com/bulk-images-upload?surface_detail=gf.e&surface_inter_position=1&surface_intra_position=4&surface_type=search",
+          link: "https://apps.shopify.com/bulk-images-upload?surface_detail=gf.e&surface_inter_position=1&surface_intra_position=4&surface_type=search",
           image: require("@/assets/projects/bulkImagesUpload.png"),
           labels: ["Shopify", "ReactJS", "Postgreql", "AWS", "NodeJS"],
         },
@@ -159,8 +160,7 @@ export default defineComponent({
           title: "Portfolio V3 UI Design",
           subTitle:
             "Empower your professional journey with a portfolio UI design that speaks volumes about your skills and creativity, setting you apart from the crowd.",
-          link:
-            "https://www.figma.com/file/NoRFMv1Dm6sBbopWLfKtdJ/V3?type=design&node-id=0-1&mode=design",
+          link: "https://www.figma.com/file/NoRFMv1Dm6sBbopWLfKtdJ/V3?type=design&node-id=0-1&mode=design",
           image: require("@/assets/projects/portfolioV3Design.png"),
           labels: ["Figma"],
         },
@@ -168,8 +168,7 @@ export default defineComponent({
           title: "Portfolio V2 UI Design",
           subTitle:
             "Empower your professional journey with a portfolio UI design that speaks volumes about your skills and creativity, setting you apart from the crowd.",
-          link:
-            "https://www.figma.com/file/Fl6em464J6EH901XEEOMAj/portfolio?type=design&mode=design&t=kfe9KVDyozch4EIB-0",
+          link: "https://www.figma.com/file/Fl6em464J6EH901XEEOMAj/portfolio?type=design&mode=design&t=kfe9KVDyozch4EIB-0",
           image: require("@/assets/projects/portfolioV2Design.png"),
           labels: ["Figma"],
         },
@@ -196,7 +195,15 @@ export default defineComponent({
             "Discover the ultimate shopping experience with our online store app, where convenience meets style at your command.",
           link: "https://front-end-one-tawny.vercel.app/",
           image: require("@/assets/projects/nexstore.png"),
-          labels: ["Gitlab", "NextJS", "NodeJS", "SMTP", "Paypal", "RapidAPI", "MongoDB"],
+          labels: [
+            "Gitlab",
+            "NextJS",
+            "NodeJS",
+            "SMTP",
+            "Paypal",
+            "RapidAPI",
+            "MongoDB",
+          ],
         },
         {
           title: "Brass Life",
@@ -226,8 +233,7 @@ export default defineComponent({
           title: "Design Project",
           subTitle:
             "The Development of Crop Management and Inventory System for Mushroom Farmers - firmware/hardware developer",
-          link:
-            "https://www.facebook.com/groups/256184368395441/permalink/520636595283549/",
+          link: "https://www.facebook.com/groups/256184368395441/permalink/520636595283549/",
           image: require("@/assets/projects/designProject.jpg"),
           labels: ["HTML", "CSS", "Javascript", "PHP", "C", "Microcontrollers"],
         },
@@ -376,7 +382,11 @@ export default defineComponent({
           top: 50%;
           width: 100%;
           transform: translateY(-50%);
-          background: linear-gradient(270deg, #0e2d2c 2.5%, rgba(14, 45, 44, 0) 100%);
+          background: linear-gradient(
+            270deg,
+            #0e2d2c 2.5%,
+            rgba(14, 45, 44, 0) 100%
+          );
           padding: 10px 0;
 
           font-size: 15px;
@@ -422,6 +432,29 @@ export default defineComponent({
     .carousel__next {
       box-sizing: content-box;
       border: 5px solid white;
+
+      .carousel__icon {
+        fill: white !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .projects {
+    .top {
+      .title {
+        font-size: 10vw;
+      }
+
+      .sub-title-container {
+        width: 60%;
+        max-width: 60%;
+
+        .sub-title {
+          font-size: 2vw;
+        }
+      }
     }
   }
 }
