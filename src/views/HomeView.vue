@@ -27,7 +27,9 @@
 
         <div class="buttons animate__animated animate__backInRight">
           <button class="download">Download CV <img :src="download" /></button>
-          <button class="view-portfolio">View Portfolio <img :src="view" /></button>
+          <button class="view-portfolio" @click="() => $router.push('/projects')">
+            View Portfolio <img :src="view" />
+          </button>
         </div>
       </div>
     </div>

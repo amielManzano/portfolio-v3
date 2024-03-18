@@ -14,7 +14,12 @@
         />
         <span :class="!isHomePage ? 'white-t' : ''">MENU</span>
       </div>
-      <img :src="logo" class="logo animate__animated animate__backInRight" alt="logo" />
+      <img
+        :src="logo"
+        class="logo animate__animated animate__backInRight"
+        alt="logo"
+        @click="() => $router.push('/')"
+      />
     </nav>
   </header>
 </template>
@@ -105,6 +110,7 @@ header {
     .logo {
       width: 138px;
       height: 138px;
+      cursor: pointer;
     }
   }
 }
