@@ -7,12 +7,11 @@
       <div class="menu animate__animated animate__backInLeft">
         <img
           :src="menu"
-          :class="!isHomePage ? 'white-img' : ''"
-          class="menu-img"
+          class="menu-img white-img"
           alt="menu"
           @click="openMenu"
         />
-        <span :class="!isHomePage ? 'white-t' : ''">MENU</span>
+        <span class="white-t">MENU</span>
       </div>
       <img
         :src="logo"
