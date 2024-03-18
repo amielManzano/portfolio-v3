@@ -437,17 +437,17 @@ export default defineComponent({
     height: calc(100dvh - 90px) !important;
 
     .top {
-      margin-top: 50px;
+      margin-top: 80px;
 
       .title {
-        font-size: 50px;
+        font-size: 37.5px;
       }
       .sub-title-container {
-        width: 60%;
-        max-width: 60%;
+        width: 85%;
+        max-width: 85%;
 
         .sub-title {
-          font-size: 8.5px;
+          font-size: 8px;
         }
       }
     }
