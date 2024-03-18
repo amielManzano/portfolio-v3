@@ -161,7 +161,7 @@ export default defineComponent({
     justify-items: center;
 
     .left-side {
-      height: 50dvh;
+      height: auto;
       width: 80%;
       margin-top: 100px;
     }
