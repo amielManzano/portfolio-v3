@@ -22,7 +22,6 @@
         <slide v-for="(project, index) in projects" :key="index">
           <div
             class="carousel__item animate__animated animate__zoomIn"
-            @click="() => openDetails(`detail-${index}`)"
           >
             <img class="image" :src="project.image" />
             <div class="details" :ref="`detail-${index}`" :class="`detail-${index}`">
@@ -501,6 +500,7 @@ export default defineComponent({
             }
           }
           .labels-container {
+            width: 100% !important;
             .label {
               width: fit-content;
               color: var(--dark-green);
