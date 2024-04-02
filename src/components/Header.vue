@@ -5,12 +5,7 @@
         <menu-part @close="closeMenu" />
       </div>
       <div class="menu animate__animated animate__backInLeft">
-        <img
-          :src="menu"
-          class="menu-img white-img"
-          alt="menu"
-          @click="openMenu"
-        />
+        <img :src="menu" class="menu-img white-img" alt="menu" @click="openMenu" />
         <span class="white-t">MENU</span>
       </div>
       <img
@@ -59,6 +54,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1;
 
   nav {
     padding: 39px 51px 0 150px;

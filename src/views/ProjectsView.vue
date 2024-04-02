@@ -1,7 +1,7 @@
 <template>
   <div class="projects">
     <div class="top">
-      <h1 class="title animate__animated animate__backInDown">My Works</h1>
+      <h1 class="title animate__animated animate__backInDown">Projects</h1>
       <div class="sub-title-container">
         <p class="sub-title animate__animated animate__backInDown">
           Welcome to my Projects Page, where you will find a meticulously curated
