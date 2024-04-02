@@ -20,9 +20,7 @@
         wrapAround="true"
       >
         <slide v-for="(project, index) in projects" :key="index">
-          <div
-            class="carousel__item animate__animated animate__zoomIn"
-          >
+          <div class="carousel__item animate__animated animate__zoomIn">
             <img class="image" :src="project.image" />
             <div class="details" :ref="`detail-${index}`" :class="`detail-${index}`">
               <div class="title-container">
@@ -332,69 +330,71 @@ export default defineComponent({
         }
       }
     }
-    .carousel__item:hover {
-      .details {
-        background: rgba(50, 120, 118, 0.8980392156862745);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(2px);
-        .title-container,
-        .link-container,
-        .labels-container {
-          visibility: visible;
-        }
-        .title-container {
-          padding: 0 27px;
-          color: white;
-          .title {
-            font-size: 30px;
-            font-weight: 300;
-            line-height: 41px;
-            text-align: left;
-            margin-bottom: 5px;
+    @media (max-width: 768px) {
+      .carousel__item:hover {
+        .details {
+          background: rgba(50, 120, 118, 0.8980392156862745);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(2px);
+          -webkit-backdrop-filter: blur(2px);
+          .title-container,
+          .link-container,
+          .labels-container {
+            visibility: visible;
           }
-          .sub-title {
-            font-size: 12px;
+          .title-container {
+            padding: 0 27px;
+            color: white;
+            .title {
+              font-size: 30px;
+              font-weight: 300;
+              line-height: 41px;
+              text-align: left;
+              margin-bottom: 5px;
+            }
+            .sub-title {
+              font-size: 12px;
+              font-weight: 300;
+              line-height: 16px;
+              text-align: left;
+              width: 90%;
+            }
+          }
+          .link-container {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            background: linear-gradient(270deg, #0e2d2c 2.5%, rgba(14, 45, 44, 0) 100%);
+            padding: 10px 0;
+            font-size: 15px;
             font-weight: 300;
-            line-height: 16px;
-            text-align: left;
+            line-height: 20px;
+            cursor: pointer;
+            img {
+              width: 11px;
+              height: 11px;
+              margin-left: 6px;
+            }
+          }
+          .labels-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 0 27px;
             width: 90%;
-          }
-        }
-        .link-container {
-          position: absolute;
-          top: 50%;
-          width: 100%;
-          transform: translateY(-50%);
-          background: linear-gradient(270deg, #0e2d2c 2.5%, rgba(14, 45, 44, 0) 100%);
-          padding: 10px 0;
-          font-size: 15px;
-          font-weight: 300;
-          line-height: 20px;
-          cursor: pointer;
-          img {
-            width: 11px;
-            height: 11px;
-            margin-left: 6px;
-          }
-        }
-        .labels-container {
-          display: flex;
-          flex-wrap: wrap;
-          width: 100%;
-          padding: 0 27px;
-          width: 90%;
-          .label {
-            width: fit-content;
-            color: var(--dark-green);
-            background: var(--washed-white);
-            padding: 4px 9px;
-            font-size: 12px;
-            font-weight: 300;
-            line-height: 14px;
-            border-radius: 20px;
-            margin-right: 5px;
-            margin: 0 5px 5px 0;
+            .label {
+              width: fit-content;
+              color: var(--dark-green);
+              background: var(--washed-white);
+              padding: 4px 9px;
+              font-size: 12px;
+              font-weight: 300;
+              line-height: 14px;
+              border-radius: 20px;
+              margin-right: 5px;
+              margin: 0 5px 5px 0;
+            }
           }
         }
       }
@@ -481,6 +481,7 @@ export default defineComponent({
       }
       .carousel__item:hover {
         .details {
+          background: rgba(50, 120, 118, 0.8980392156862745);
           .title-container,
           .link-container,
           .labels-container {
