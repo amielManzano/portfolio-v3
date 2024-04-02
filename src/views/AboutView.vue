@@ -186,11 +186,11 @@ export default defineComponent({
 
         .cards {
           .card {
-            height: 98px !important;
-            max-height: 98px !important;
+            min-height: 98px !important;
+            height: auto;
             border-radius: 20px 20px 0px 0px;
             background: linear-gradient(0deg, transparent 5.07%, #45a29f 69.85%);
-            padding: 14px 24px;
+            padding: 0 24px;
             display: flex;
             align-items: center;
 
