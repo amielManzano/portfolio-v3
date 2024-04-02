@@ -20,7 +20,11 @@
         wrapAround="true"
       >
         <slide v-for="(project, index) in projects" :key="index">
-          <div class="carousel__item animate__animated animate__zoomIn">
+          <div
+            class="carousel__item animate__animated animate__zoomIn disable-hover"
+            :class="`card-${index}`"
+            @click="((e: any) => openDetails(e))"
+          >
             <img class="image" :src="project.image" />
             <div class="details" :ref="`detail-${index}`" :class="`detail-${index}`">
               <div class="title-container">
@@ -238,10 +242,17 @@ export default defineComponent({
     handleResize() {
       this.isMobile = window.innerWidth < 768;
     },
-    openDetails(className: string) {
-      const details = document.querySelector<HTMLElement>(`.${className}`);
-      if (details) {
-        details.style.visibility = "visible";
+    openDetails(event: any) {
+      const element: any = event.target;
+      const w = window.innerWidth;
+      if(w > 768) return 
+      if (!element) return;
+      if (element.className === "image") {
+        element.nextSibling.style.display = "flex";
+      } else {
+        if (element.classList.contains("details")) {
+          element.style.display = "none";
+        }
       }
     },
   },
@@ -470,44 +481,75 @@ export default defineComponent({
         .image {
         }
         .details {
+          display: none;
+
           .title-container,
           .link-container,
           .labels-container {
-            visibility: hidden;
+            visibility: visible;
           }
           .link-container {
           }
         }
       }
-      .carousel__item:hover {
+      .carousel__item {
         .details {
           background: rgba(50, 120, 118, 0.8980392156862745);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(2px);
+          -webkit-backdrop-filter: blur(2px);
           .title-container,
           .link-container,
           .labels-container {
             visibility: visible;
           }
           .title-container {
+            padding: 0 27px;
+            color: white;
             .title {
-              font-size: 25px;
+              font-size: 30px;
+              font-weight: 300;
+              line-height: 41px;
+              text-align: left;
+              margin-bottom: 5px;
             }
             .sub-title {
-              font-size: 8.5px;
-              line-height: 12px;
+              font-size: 12px;
+              font-weight: 300;
+              line-height: 16px;
+              text-align: left;
+              width: 90%;
             }
           }
           .link-container {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            background: linear-gradient(270deg, #0e2d2c 2.5%, rgba(14, 45, 44, 0) 100%);
+            padding: 10px 0;
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 20px;
+            cursor: pointer;
             img {
+              width: 11px;
+              height: 11px;
+              margin-left: 6px;
             }
           }
           .labels-container {
-            width: 100% !important;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 0 27px;
+            width: 90%;
             .label {
               width: fit-content;
               color: var(--dark-green);
               background: var(--washed-white);
               padding: 4px 9px;
-              font-size: 8.5px;
+              font-size: 12px;
               font-weight: 300;
               line-height: 14px;
               border-radius: 20px;
@@ -543,6 +585,74 @@ export default defineComponent({
     img {
       width: 30px !important;
       filter: drop-shadow(3px 3px 2px black);
+    }
+  }
+}
+
+.open {
+  .details {
+    background: rgba(50, 120, 118, 0.8980392156862745) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    .title-container,
+    .link-container,
+    .labels-container {
+      visibility: visible;
+    }
+    .title-container {
+      padding: 0 27px;
+      color: white;
+      .title {
+        font-size: 30px;
+        font-weight: 300;
+        line-height: 41px;
+        text-align: left;
+        margin-bottom: 5px;
+      }
+      .sub-title {
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 16px;
+        text-align: left;
+        width: 90%;
+      }
+    }
+    .link-container {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      transform: translateY(-50%);
+      background: linear-gradient(270deg, #0e2d2c 2.5%, rgba(14, 45, 44, 0) 100%);
+      padding: 10px 0;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 20px;
+      cursor: pointer;
+      img {
+        width: 11px;
+        height: 11px;
+        margin-left: 6px;
+      }
+    }
+    .labels-container {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      padding: 0 27px;
+      width: 90%;
+      .label {
+        width: fit-content;
+        color: var(--dark-green);
+        background: var(--washed-white);
+        padding: 4px 9px;
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 14px;
+        border-radius: 20px;
+        margin-right: 5px;
+        margin: 0 5px 5px 0;
+      }
     }
   }
 }
