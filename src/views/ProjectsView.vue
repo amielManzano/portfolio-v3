@@ -330,7 +330,7 @@ export default defineComponent({
         }
       }
     }
-    @media (max-width: 768px) {
+    @media (min-width: 768px) {
       .carousel__item:hover {
         .details {
           background: rgba(50, 120, 118, 0.8980392156862745);
