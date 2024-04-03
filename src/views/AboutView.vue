@@ -508,7 +508,7 @@ export default defineComponent({
             margin-top: 30px;
             font-size: 12px;
             font-weight: 300;
-            line-height: 27.24px;
+            line-height: 160%;
             text-align: justify;
             color: white;
           }
