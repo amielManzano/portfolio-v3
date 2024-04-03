@@ -93,7 +93,7 @@ export default defineComponent({
           image: require("@/assets/aboutme/card1.svg"),
         },
         {
-          title: "2+ Years of Experience",
+          title: "3+ Years of Experience",
           subTitle:
             "Years of experience gradually shape individuals into seasoned professionals, where expertise and wisdom unite.",
           image: require("@/assets/aboutme/card2.svg"),
