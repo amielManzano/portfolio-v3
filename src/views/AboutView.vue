@@ -2,7 +2,7 @@
   <div class="about">
     <div class="top">
       <img :src="home1" class="left-side animate__animated animate__backInLeft" />
-      <div class="right-side">
+      <div class="right-side animate__animated animate__backInRight">
         <h2 class="title">Personal Information</h2>
         <h1 class="subtitle">About Me</h1>
         <p class="description">
@@ -71,6 +71,58 @@
         </div>
       </div>
     </div>
+    <div class="awards">
+      <h2 class="title">Awards</h2>
+      <div class="awards-images">
+        <img v-for="(award, index) in awards" :key="index" :src="award" />
+      </div>
+    </div>
+    <div class="experience">
+      <h2 class="title">Experience</h2>
+      <div class="job-container">
+        <div
+          id="scrollableDiv"
+          class="job-wrapper"
+          @mousedown="startDrag"
+          @mousemove="drag"
+          @mouseup="endDrag"
+          ref="scrollableDiv"
+        >
+          <div class="job" v-for="job in experiences" :key="job.year">
+            <div class="job-top">
+              <div class="year-title">
+                <h5 class="year">{{ job.year }}</h5>
+                <h5 class="job-title">{{ job.title }}</h5>
+              </div>
+              <div class="job-subtitle-container">
+                <h5 class="job-subtitle">{{ job.subtitle }}</h5>
+                <div class="circle" />
+              </div>
+            </div>
+            <div class="job-bottom">
+              <h5 class="company-name">{{ job.company }}</h5>
+              <p class="task">{{ job.task }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skills">
+      <h5 class="title">Skills</h5>
+      <h5 class="subtitle">Technologies learned</h5>
+      <div class="techs">
+        <div
+          class="tech"
+          v-for="skill in skills"
+          :key="skill.name"
+          :style="{ width: skill.percent + '%' }"
+        >
+          <img :src="skill.logo" alt="" />
+          <span class="name">{{ skill.name }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -85,6 +137,8 @@ export default defineComponent({
       home1: require("@/assets/home5.jpg"),
       download: require("@/assets/download.svg"),
       view: require("@/assets/view.svg"),
+      isDragging: false,
+      initialScrollX: 0,
       cards: [
         {
           title: "20 Completed Projects",
@@ -125,7 +179,83 @@ export default defineComponent({
             "During my stay at Zuitt Bootcamp, we were taught and equipped with these different web development technologies: HTML, CSS, Javascript, Gitlab, Heroku, Vercel, MongoDB, NodeJS, ExpressJS, ReactJS, and NextJS. I graduated as top 1 in our batch.",
         },
       ],
+      awards: [
+        require("@/assets/awards/a1.jpg"),
+        require("@/assets/awards/a2.jpg"),
+        require("@/assets/awards/a3.jpg"),
+        require("@/assets/awards/a4.jpg"),
+        require("@/assets/awards/a5.jpg"),
+        require("@/assets/awards/a6.jpg"),
+        require("@/assets/awards/a7.jpg"),
+        require("@/assets/awards/a8.jpg"),
+        require("@/assets/awards/a9.jpg"),
+      ],
+      experiences: [
+        {
+          year: "Mar 2021 - Feb 2022",
+          title: "Junior Level",
+          subtitle: "Software Engineer",
+          company: "Nexseed Inc.",
+          task:
+            "I worked on web development projects like Shopify stores, Shopify apps, and other front-end tasks. During the onboarding training, I was tasked to be the project manager / frontend engineer .",
+        },
+        {
+          year: "Feb 2022 - Nov 2022",
+          title: "Mid Level, Team Lead",
+          subtitle: "Software Engineer",
+          company: "Nexseed Inc.",
+          task:
+            "After my 1 year with the company, I was promoted to be the team leader for the GVO project. I am juggling my tasks both in handling the team as well as being a frontend engineer.",
+        },
+        {
+          year: "Nov 2022 - Present",
+          title: "Mid Level, Team Lead",
+          subtitle: "Software Engineer",
+          company: "Seed Tech Philippines",
+          task:
+            "I am working as a team leader for 2 projects namely, GVO and Tomorrowland. I am also working as a fronted engineer aside from being a team leader.",
+        },
+      ],
+      skills: [
+        { logo: require("@/assets/techs/react.svg"), name: "React.js", percent: 90 },
+        { logo: require("@/assets/techs/next.svg"), name: "Next.js", percent: 70 },
+        { logo: require("@/assets/techs/js.svg"), name: "Javascript", percent: 100 },
+        { logo: require("@/assets/techs/html.svg"), name: "HTML", percent: 100 },
+        { logo: require("@/assets/techs/express.svg"), name: "Express.js", percent: 60 },
+        { logo: require("@/assets/techs/sql.svg"), name: "SQL", percent: 40 },
+        { logo: require("@/assets/techs/css.svg"), name: "CSS", percent: 100 },
+        { logo: require("@/assets/techs/shopify.svg"), name: "Shopify", percent: 80 },
+        { logo: require("@/assets/techs/graphql.svg"), name: "Shopify", percent: 40 },
+        { logo: require("@/assets/techs/koa.svg"), name: "Koa.js", percent: 50 },
+        { logo: require("@/assets/techs/git.svg"), name: "Git", percent: 90 },
+        { logo: require("@/assets/techs/mongodb.svg"), name: "MongoDB", percent: 70 },
+        { logo: require("@/assets/techs/vue.svg"), name: "Vue.js", percent: 100 },
+        {
+          logo: require("@/assets/techs/aws.svg"),
+          name: "Amazon Web Services",
+          percent: 60,
+        },
+        { logo: require("@/assets/techs/node.svg"), name: "Node.js", percent: 70 },
+        { logo: require("@/assets/techs/nuxt.svg"), name: "Nuxt.js", percent: 100 },
+        { logo: require("@/assets/techs/figma.svg"), name: "Figma", percent: 80 },
+      ],
     };
+  },
+  methods: {
+    startDrag(event) {
+      this.isDragging = true;
+      this.initialScrollX = event.clientX + this.$refs.scrollableDiv.scrollLeft;
+    },
+    drag(event) {
+      if (this.isDragging) {
+        const scrollDelta = event.clientX - this.initialScrollX;
+        this.$refs.scrollableDiv.scrollLeft -= scrollDelta;
+        this.initialScrollX = event.clientX;
+      }
+    },
+    endDrag() {
+      this.isDragging = false;
+    },
   },
 });
 </script>
@@ -260,7 +390,7 @@ export default defineComponent({
           .circle {
             position: absolute;
             bottom: -10px;
-            right: -10px;
+            right: -11px;
             background: #d9d9d9;
             width: 20px;
             height: 20px;
@@ -325,6 +455,185 @@ export default defineComponent({
 
   .education-sm {
     display: none;
+  }
+
+  .awards {
+    padding: 105px 150px 126px;
+
+    .title {
+      font-size: 110px;
+      font-weight: 300;
+      line-height: 149.82px;
+      text-align: center;
+      color: var(--light-blue);
+      margin-bottom: 37px;
+    }
+
+    .awards-images {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 350px;
+        height: 300px;
+        object-fit: cover;
+        margin: 8px;
+        filter: grayscale(100%);
+      }
+
+      img:hover {
+        filter: grayscale(0);
+      }
+    }
+  }
+
+  .experience {
+    padding: 0 0 150px;
+
+    .title {
+      font-size: 110px;
+      font-weight: 300;
+      line-height: 149.82px;
+      text-align: left;
+      color: var(--light-blue);
+      margin-bottom: 37px;
+      padding: 0 153px;
+    }
+
+    .job-container {
+      .job-wrapper {
+        display: flex;
+        width: fit-content;
+        overflow-x: auto;
+        width: 100vw;
+        cursor: pointer;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .job {
+          .job-top {
+            border-bottom: 3px solid #8f8f8f;
+            padding-left: 190px;
+            max-width: 600px;
+            width: 600px;
+
+            .year-title {
+              .year {
+                font-size: 20px;
+                font-weight: 300;
+                line-height: 27.24px;
+                text-align: left;
+                color: var(--light-blue);
+              }
+
+              .job-title {
+                font-size: 50px;
+                font-weight: 300;
+                line-height: 68.1px;
+                text-align: left;
+                color: white;
+              }
+            }
+
+            .job-subtitle-container {
+              margin-left: 55px;
+              height: 112px;
+              border-left: 3px solid #8f8f8f;
+              position: relative;
+
+              .job-subtitle {
+                font-size: 25px;
+                font-weight: 300;
+                line-height: 34.05px;
+                text-align: left;
+                color: var(--semi-dark-green);
+
+                padding-left: 17px;
+              }
+
+              .circle {
+                position: absolute;
+                bottom: -10px;
+                left: -11px;
+                background: #d9d9d9;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+              }
+            }
+          }
+
+          .job-bottom {
+            padding-left: 250px;
+            max-width: 540px;
+            width: 545px;
+
+            .company-name {
+              font-size: 30px;
+              font-weight: 300;
+              line-height: 40.86px;
+              text-align: left;
+              color: var(--light-blue);
+              margin-top: 62px;
+              margin-bottom: 20px;
+            }
+
+            .task {
+              font-size: 20px;
+              font-weight: 300;
+              line-height: 27.24px;
+              text-align: left;
+              color: white;
+              padding-right: 40px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .skills {
+    padding: 0 150px 183px;
+
+    .title {
+      font-size: 110px;
+      font-weight: 300;
+      line-height: 110%;
+      text-align: center;
+      color: var(--light-blue);
+    }
+
+    .subtitle {
+      font-size: 30px;
+      font-weight: 300;
+      line-height: 40.86px;
+      color: white;
+    }
+
+    .techs {
+      padding-top: 61px;
+
+      .tech {
+        height: 100px;
+        border-radius: 0px 20px 20px 0px;
+        background: linear-gradient(270deg, #45a29f 0%, rgba(69, 162, 159, 0) 92.5%);
+        margin: 8px 0;
+        display: flex;
+        align-items: center;
+
+        .name {
+          font-size: 30px;
+          font-weight: 300;
+          line-height: 40.86px;
+          color: white;
+          margin-left: 16px;
+        }
+      }
+    }
   }
 }
 
@@ -450,7 +759,7 @@ export default defineComponent({
           .circle {
             position: absolute;
             bottom: -10px;
-            left: -10px;
+            left: -11px;
             background: #d9d9d9;
             width: 20px;
             height: 20px;
@@ -511,6 +820,161 @@ export default defineComponent({
             line-height: 160%;
             text-align: justify;
             color: white;
+          }
+        }
+      }
+    }
+
+    .awards {
+      padding: 40px 16px;
+
+      .title {
+        font-size: 60px;
+        font-weight: 300;
+        line-height: 81.72px;
+        text-align: center;
+        color: var(--light-blue);
+        margin-bottom: 22px;
+      }
+
+      .awards-images {
+        padding: 0;
+
+        img {
+          width: 160px;
+          height: 125px;
+          margin: 2.5px;
+        }
+      }
+    }
+
+    .experience {
+      padding: 0 0 86px;
+
+      .title {
+        font-size: 60px;
+        font-weight: 300;
+        line-height: 81.72px;
+        text-align: left;
+        margin-bottom: 21px;
+        padding: 0 12px;
+      }
+
+      .job-container {
+        .job-wrapper {
+          display: flex;
+          width: fit-content;
+          overflow-x: auto;
+          width: 100vw;
+          cursor: pointer;
+
+          &::-webkit-scrollbar {
+            display: none;
+          }
+
+          .job {
+            .job-top {
+              border-bottom: 3px solid #8f8f8f;
+              padding-left: 60px;
+              max-width: 310px;
+              width: 310px;
+
+              .year-title {
+                .year {
+                  font-size: 15px;
+                  font-weight: 300;
+                  line-height: 20.43px;
+                }
+
+                .job-title {
+                  font-size: 30px;
+                  font-weight: 300;
+                  line-height: 40.86px;
+                }
+              }
+
+              .job-subtitle-container {
+                margin-left: 30px;
+                height: 68px;
+
+                .job-subtitle {
+                  font-size: 15px;
+                  font-weight: 300;
+                  line-height: 20.43px;
+
+                  color: var(--semi-dark-green);
+
+                  padding-left: 17px;
+                }
+
+                .circle {
+                  position: absolute;
+                  bottom: -10px;
+                  left: -11px;
+                  background: #d9d9d9;
+                  width: 20px;
+                  height: 20px;
+                  border-radius: 50%;
+                }
+              }
+            }
+
+            .job-bottom {
+              padding-left: 60px;
+              max-width: calc(100dvw - 120px);
+              width: calc(100dvw - 120px);
+
+              .company-name {
+                font-size: 20px;
+                font-weight: 300;
+                line-height: 27.24px;
+                margin-top: 34px;
+                margin-bottom: 12px;
+              }
+
+              .task {
+                font-size: 10px;
+                font-weight: 300;
+                line-height: 15px;
+                padding-right: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .skills {
+      padding: 40px 16px;
+
+      .title {
+        font-size: 60px;
+        font-weight: 300;
+        line-height: 110%;
+        margin-bottom: 0;
+      }
+      .subtitle {
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 20.43px;
+      }
+
+      .techs {
+        padding-top: 27px;
+
+        .tech {
+          margin: 6px 0;
+          height: 43.98px;
+          border-radius: 0px 10px 10px 0px;
+
+          img {
+            width: 30px;
+          }
+
+          .name {
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 20.43px;
           }
         }
       }

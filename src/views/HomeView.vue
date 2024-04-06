@@ -26,7 +26,9 @@
         </h3>
 
         <div class="buttons animate__animated animate__backInRight">
-          <button class="download">Download CV <img :src="download" /></button>
+          <button class="download" @click="downloadPDF">
+            Download CV <img :src="download" />
+          </button>
           <button class="view-portfolio" @click="() => $router.push('/projects')">
             View Portfolio <img :src="view" />
           </button>
@@ -59,6 +61,15 @@ export default defineComponent({
       download: require("@/assets/download.svg"),
       view: require("@/assets/view.svg"),
     };
+  },
+  methods: {
+    downloadPDF() {
+      const pdfUrl = "AmielManzanoResume.pdf";
+      const anchor = document.createElement("a");
+      anchor.href = pdfUrl;
+      anchor.download = "AmielManzanoResume.pdf";
+      anchor.click();
+    },
   },
 });
 </script>
