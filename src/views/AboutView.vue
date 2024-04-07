@@ -106,6 +106,7 @@
           </div>
         </div>
       </div>
+      <img :src="swipe" alt="" class="swipe" />
     </div>
 
     <div class="skills">
@@ -136,6 +137,7 @@ export default defineComponent({
     return {
       home1: require("@/assets/home5.jpg"),
       download: require("@/assets/download.svg"),
+      swipe: require("@/assets/swipe.png"),
       view: require("@/assets/view.svg"),
       isDragging: false,
       initialScrollX: 0,
@@ -225,7 +227,7 @@ export default defineComponent({
         { logo: require("@/assets/techs/sql.svg"), name: "SQL", percent: 40 },
         { logo: require("@/assets/techs/css.svg"), name: "CSS", percent: 100 },
         { logo: require("@/assets/techs/shopify.svg"), name: "Shopify", percent: 80 },
-        { logo: require("@/assets/techs/graphql.svg"), name: "Shopify", percent: 40 },
+        { logo: require("@/assets/techs/graphql.svg"), name: "GraphQL", percent: 40 },
         { logo: require("@/assets/techs/koa.svg"), name: "Koa.js", percent: 50 },
         { logo: require("@/assets/techs/git.svg"), name: "Git", percent: 90 },
         { logo: require("@/assets/techs/mongodb.svg"), name: "MongoDB", percent: 70 },
@@ -490,7 +492,7 @@ export default defineComponent({
   }
 
   .experience {
-    padding: 0 0 150px;
+    padding: 0 0 120px;
 
     .title {
       font-size: 110px;
@@ -593,6 +595,10 @@ export default defineComponent({
           }
         }
       }
+    }
+
+    .swipe {
+      margin-top: 40px;
     }
   }
 
@@ -849,7 +855,7 @@ export default defineComponent({
     }
 
     .experience {
-      padding: 0 0 86px;
+      padding: 0 0 26px;
 
       .title {
         font-size: 60px;
@@ -941,6 +947,10 @@ export default defineComponent({
             }
           }
         }
+      }
+
+      .swipe {
+        margin-top: 30px;
       }
     }
 
