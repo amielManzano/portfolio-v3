@@ -951,6 +951,7 @@ export default defineComponent({
 
       .swipe {
         margin-top: 30px;
+        width: 40px;
       }
     }
 
