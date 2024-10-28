@@ -594,6 +594,8 @@ export default defineComponent({
     .cert-images {
       .cert-container {
         display: flex;
+        align-items: center;
+        justify-content: center;
         flex-direction: column;
       }
 
@@ -605,6 +607,7 @@ export default defineComponent({
         color: var(--light-blue);
         margin-bottom: 30px;
         font-size: 14px;
+        padding: 0 10px;
       }
     }
   }
