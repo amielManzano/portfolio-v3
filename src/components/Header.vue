@@ -5,16 +5,15 @@
         <menu-part @close="closeMenu" />
       </div>
       <div class="menu animate__animated animate__backInLeft">
-        <img
-          :src="menu"
-          :class="!isHomePage ? 'white-img' : ''"
-          class="menu-img"
-          alt="menu"
-          @click="openMenu"
-        />
-        <span :class="!isHomePage ? 'white-t' : ''">MENU</span>
+        <img :src="menu" class="menu-img white-img" alt="menu" @click="openMenu" />
+        <span class="white-t">MENU</span>
       </div>
-      <img :src="logo" class="logo animate__animated animate__backInRight" alt="logo" />
+      <img
+        :src="logo"
+        class="logo animate__animated animate__backInRight"
+        alt="logo"
+        @click="() => $router.push('/')"
+      />
     </nav>
   </header>
 </template>
@@ -52,9 +51,10 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 header {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1;
 
   nav {
     padding: 39px 51px 0 150px;
@@ -66,9 +66,10 @@ header {
     .menu-modal {
       height: 100dvh;
       width: 100%;
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
+      z-index: 2;
     }
 
     .menu {
@@ -105,6 +106,7 @@ header {
     .logo {
       width: 138px;
       height: 138px;
+      cursor: pointer;
     }
   }
 }

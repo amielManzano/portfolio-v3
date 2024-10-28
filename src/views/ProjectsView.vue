@@ -1,11 +1,11 @@
 <template>
   <div class="projects">
     <div class="top">
-      <h1 class="title">My Works</h1>
+      <h1 class="title animate__animated animate__backInDown">Projects</h1>
       <div class="sub-title-container">
-        <p class="sub-title">
+        <p class="sub-title animate__animated animate__backInDown">
           Welcome to my Projects Page, where you will find a meticulously
-          curated selection of more than 20 diverse and innovative undertakings.
+          curated selection of more than 16 diverse and innovative undertakings.
           Each project represents a testament to my commitment to excellence and
           showcases a versatile skill set honed through years of dedicated work.
         </p>
@@ -20,9 +20,17 @@
         wrapAround="true"
       >
         <slide v-for="(project, index) in projects" :key="index">
-          <div class="carousel__item">
+          <div
+            class="carousel__item animate__animated animate__zoomIn disable-hover"
+            :class="`card-${index}`"
+            @click="((e: any) => openDetails(e))"
+          >
             <img class="image" :src="project.image" />
-            <div class="details">
+            <div
+              class="details"
+              :ref="`detail-${index}`"
+              :class="`detail-${index}`"
+            >
               <div class="title-container">
                 <h4 class="title">{{ project.title }}</h4>
                 <p class="sub-title">
@@ -45,20 +53,26 @@
             </div>
           </div>
         </slide>
-
         <template #addons>
-          <navigation />
+          <navigation>
+            <template #next>
+              <span class="arrow arrow-right"><img :src="arrow" /> </span>
+            </template>
+            <template #prev>
+              <span class="arrow rotate-y arrow-left"
+                ><img :src="arrow" />
+              </span>
+            </template>
+          </navigation>
         </template>
       </carousel>
     </div>
   </div>
 </template>
-
 <script lang="ts">
 import { defineComponent } from "vue";
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Navigation } from "vue3-carousel";
-
 export default defineComponent({
   name: "ProjectsView",
   components: {
@@ -68,16 +82,7 @@ export default defineComponent({
   },
   data() {
     return {
-      // homeImages: [
-      //   require("@/assets/home1.jpg"),
-      //   require("@/assets/home5.jpg"),
-      //   require("@/assets/home8.jpg"),
-      //   require("@/assets/home2.jpg"),
-      //   require("@/assets/home3.jpg"),
-      //   require("@/assets/home4.jpg"),
-      //   require("@/assets/home6.jpg"),
-      //   require("@/assets/home7.jpg"),
-      // ],
+      arrow: require("@/assets/arrow.svg"),
       projects: [
         {
           title: "Prock DX",
@@ -103,7 +108,6 @@ export default defineComponent({
           image: require("@/assets/projects/uniel.png"),
           labels: ["NextJS", "Shopify", "NodeJS", "nodemailer", "CMS"],
         },
-
         {
           title: "CSV download",
           subTitle:
@@ -112,7 +116,6 @@ export default defineComponent({
           image: require("@/assets/projects/csvDownload.png"),
           labels: ["Shopify", "ReactJS", "sql", "AWS", "NodeJS"],
         },
-
         {
           title: "Bulk Images Upload",
           subTitle:
@@ -188,7 +191,6 @@ export default defineComponent({
           image: require("@/assets/projects/portfolioV1.png"),
           labels: ["Nextjs", "Vercel", "Bootstrap"],
         },
-
         {
           title: "Nexstore",
           subTitle:
@@ -252,10 +254,22 @@ export default defineComponent({
     handleResize() {
       this.isMobile = window.innerWidth < 768;
     },
+    openDetails(event: any) {
+      const element: any = event.target;
+      const w = window.innerWidth;
+      if (w > 768) return;
+      if (!element) return;
+      if (element.className === "image") {
+        element.nextSibling.style.display = "flex";
+      } else {
+        if (element.classList.contains("details")) {
+          element.style.display = "none";
+        }
+      }
+    },
   },
 });
 </script>
-
 <style lang="scss" scoped>
 .projects {
   display: flex;
@@ -263,7 +277,6 @@ export default defineComponent({
   justify-content: center;
   flex-direction: column;
   height: calc(100dvh - 122px) !important;
-
   .top {
     display: flex;
     align-items: center;
@@ -271,17 +284,14 @@ export default defineComponent({
     flex-direction: column;
     margin-bottom: 20px;
     margin-top: 100px;
-
     .title {
       color: var(--light-blue);
       font-size: 4.25vw;
       font-weight: 300;
     }
-
     .sub-title-container {
       max-width: 40%;
       width: 40%;
-
       .sub-title {
         font-size: 0.7vw;
         font-weight: 300;
@@ -289,15 +299,20 @@ export default defineComponent({
       }
     }
   }
-
   .cards-container {
     width: 100vw;
 
+    .carousel {
+      .carousel__prev {
+        svg {
+          fill: white !important;
+        }
+      }
+    }
     .card {
       height: 45.5dvh;
       background: wheat;
     }
-
     .carousel__item {
       height: 55dvh;
       width: 100%;
@@ -310,7 +325,6 @@ export default defineComponent({
       align-items: center;
       border: 0;
       position: relative;
-
       .image {
         position: absolute;
         height: 100%;
@@ -319,7 +333,6 @@ export default defineComponent({
         object-fit: cover;
         object-position: top;
       }
-
       .details {
         border-radius: 8px;
         height: 100%;
@@ -329,131 +342,340 @@ export default defineComponent({
         justify-content: space-between;
         padding: 33px 0 25px 0;
         position: relative;
-
         .title-container,
         .link-container,
         .labels-container {
           visibility: hidden;
         }
-
         .link-container {
           color: white !important;
           text-decoration: none;
         }
       }
     }
-
-    .carousel__item:hover {
-      .details {
-        background: rgba(50, 120, 118, 0.8980392156862745);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(2px);
-
-        .title-container,
-        .link-container,
-        .labels-container {
-          visibility: visible;
-        }
-
-        .title-container {
-          padding: 0 27px;
-          color: white;
-
-          .title {
-            font-size: 2vw;
-            font-weight: 300;
-            line-height: 41px;
-            text-align: left;
-            margin-bottom: 5px;
+    @media (min-width: 768px) {
+      .carousel__item:hover {
+        .details {
+          background: rgba(50, 120, 118, 0.8980392156862745);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(2px);
+          -webkit-backdrop-filter: blur(2px);
+          .title-container,
+          .link-container,
+          .labels-container {
+            visibility: visible;
           }
-
-          .sub-title {
-            font-size: 0.75vw;
+          .title-container {
+            padding: 0 27px;
+            color: white;
+            .title {
+              font-size: 30px;
+              font-weight: 300;
+              line-height: 41px;
+              text-align: left;
+              margin-bottom: 5px;
+            }
+            .sub-title {
+              font-size: 12px;
+              font-weight: 300;
+              line-height: 16px;
+              text-align: left;
+              width: 90%;
+            }
+          }
+          .link-container {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            background: linear-gradient(
+              270deg,
+              #0e2d2c 2.5%,
+              rgba(14, 45, 44, 0) 100%
+            );
+            padding: 10px 0;
+            font-size: 15px;
             font-weight: 300;
-            line-height: 16px;
-            text-align: left;
+            line-height: 20px;
+            cursor: pointer;
+            img {
+              width: 11px;
+              height: 11px;
+              margin-left: 6px;
+            }
+          }
+          .labels-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 0 27px;
             width: 90%;
-          }
-        }
-
-        .link-container {
-          position: absolute;
-          top: 50%;
-          width: 100%;
-          transform: translateY(-50%);
-          background: linear-gradient(
-            270deg,
-            #0e2d2c 2.5%,
-            rgba(14, 45, 44, 0) 100%
-          );
-          padding: 10px 0;
-
-          font-size: 15px;
-          font-weight: 300;
-          line-height: 20px;
-          cursor: pointer;
-
-          img {
-            width: 11px;
-            height: 11px;
-            margin-left: 6px;
-          }
-        }
-
-        .labels-container {
-          display: flex;
-          flex-wrap: wrap;
-          width: 100%;
-          padding: 0 27px;
-          width: 90%;
-
-          .label {
-            width: fit-content;
-            color: var(--dark-green);
-            background: var(--washed-white);
-            padding: 4px 9px;
-            font-size: 12px;
-            font-weight: 300;
-            line-height: 14px;
-            border-radius: 20px;
-            margin-right: 5px;
-            margin: 0 5px 5px 0;
+            .label {
+              width: fit-content;
+              color: var(--dark-green);
+              background: var(--washed-white);
+              padding: 4px 9px;
+              font-size: 12px;
+              font-weight: 300;
+              line-height: 14px;
+              border-radius: 20px;
+              margin-right: 5px;
+              margin: 0 5px 5px 0;
+            }
           }
         }
       }
     }
-
     .carousel__slide {
       padding: 10px;
     }
-
     .carousel__prev,
     .carousel__next {
       box-sizing: content-box;
       border: 5px solid white;
-
       .carousel__icon {
         fill: white !important;
       }
+    }
+  }
+
+  .rotate-y {
+    transform: rotateY(180deg);
+  }
+
+  .arrow-left {
+    margin-left: 50px;
+  }
+
+  .arrow-right {
+    margin-right: 50px;
+  }
+
+  .arrow {
+    img {
+      width: 70px;
+      filter: drop-shadow(3px 3px 2px black);
     }
   }
 }
 
 @media (max-width: 768px) {
   .projects {
-    .top {
-      .title {
-        font-size: 10vw;
-      }
+    height: calc(100dvh - 90px) !important;
 
+    .top {
+      margin-top: 80px;
+
+      .title {
+        font-size: 37.5px;
+      }
       .sub-title-container {
-        width: 60%;
-        max-width: 60%;
+        width: 85%;
+        max-width: 85%;
 
         .sub-title {
-          font-size: 2vw;
+          font-size: 8px;
         }
+      }
+    }
+
+    .cards-container {
+      width: 100vw;
+
+      .carousel {
+        .carousel__prev {
+          svg {
+            fill: white !important;
+          }
+        }
+      }
+      .card {
+        height: 45.5dvh;
+        background: wheat;
+      }
+      .carousel__item {
+        .image {
+        }
+        .details {
+          display: none;
+
+          .title-container,
+          .link-container,
+          .labels-container {
+            visibility: visible;
+          }
+          .link-container {
+          }
+        }
+      }
+      .carousel__item {
+        .details {
+          background: rgba(50, 120, 118, 0.8980392156862745);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(2px);
+          -webkit-backdrop-filter: blur(2px);
+          .title-container,
+          .link-container,
+          .labels-container {
+            visibility: visible;
+          }
+          .title-container {
+            padding: 0 27px;
+            color: white;
+            .title {
+              font-size: 30px;
+              font-weight: 300;
+              line-height: 41px;
+              text-align: left;
+              margin-bottom: 5px;
+            }
+            .sub-title {
+              font-size: 12px;
+              font-weight: 300;
+              line-height: 16px;
+              text-align: left;
+              width: 90%;
+            }
+          }
+          .link-container {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            background: linear-gradient(
+              270deg,
+              #0e2d2c 2.5%,
+              rgba(14, 45, 44, 0) 100%
+            );
+            padding: 10px 0;
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 20px;
+            cursor: pointer;
+            img {
+              width: 11px;
+              height: 11px;
+              margin-left: 6px;
+            }
+          }
+          .labels-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 0 27px;
+            width: 90%;
+            .label {
+              width: fit-content;
+              color: var(--dark-green);
+              background: var(--washed-white);
+              padding: 4px 9px;
+              font-size: 12px;
+              font-weight: 300;
+              line-height: 14px;
+              border-radius: 20px;
+              margin-right: 5px;
+              margin: 0 5px 5px 0;
+            }
+          }
+        }
+      }
+      .carousel__slide {
+        padding: 10px;
+      }
+      .carousel__prev,
+      .carousel__next {
+        box-sizing: content-box;
+        border: 5px solid white;
+        .carousel__icon {
+          fill: white !important;
+        }
+      }
+    }
+  }
+
+  .arrow-left {
+    margin-left: 5px !important;
+  }
+
+  .arrow-right {
+    margin-right: 5px !important;
+  }
+
+  .arrow {
+    img {
+      width: 30px !important;
+      filter: drop-shadow(3px 3px 2px black);
+    }
+  }
+}
+
+.open {
+  .details {
+    background: rgba(50, 120, 118, 0.8980392156862745) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    .title-container,
+    .link-container,
+    .labels-container {
+      visibility: visible;
+    }
+    .title-container {
+      padding: 0 27px;
+      color: white;
+      .title {
+        font-size: 30px;
+        font-weight: 300;
+        line-height: 41px;
+        text-align: left;
+        margin-bottom: 5px;
+      }
+      .sub-title {
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 16px;
+        text-align: left;
+        width: 90%;
+      }
+    }
+    .link-container {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      transform: translateY(-50%);
+      background: linear-gradient(
+        270deg,
+        #0e2d2c 2.5%,
+        rgba(14, 45, 44, 0) 100%
+      );
+      padding: 10px 0;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 20px;
+      cursor: pointer;
+      img {
+        width: 11px;
+        height: 11px;
+        margin-left: 6px;
+      }
+    }
+    .labels-container {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      padding: 0 27px;
+      width: 90%;
+      .label {
+        width: fit-content;
+        color: var(--dark-green);
+        background: var(--washed-white);
+        padding: 4px 9px;
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 14px;
+        border-radius: 20px;
+        margin-right: 5px;
+        margin: 0 5px 5px 0;
       }
     }
   }

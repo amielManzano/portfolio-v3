@@ -8,7 +8,6 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-
 export default defineComponent({
   name: "FooterPart",
   data() {
@@ -48,35 +47,28 @@ footer {
   grid-template-columns: 50vw 50vw;
   position: sticky;
   bottom: 0;
-
   .container {
     padding: 47px 47px 20px 47px;
-
     img {
       margin: 0 14px;
       cursor: pointer;
     }
   }
 }
-
 .full-width {
   grid-template-columns: 1fr;
 }
-
 .absolute {
   position: absolute;
   bottom: 0;
 }
-
 @media (max-width: 768px) {
   footer {
     grid-template-columns: 1fr;
     position: relative;
     width: 100%;
-
     .container {
       padding: 36px 20px 20px 20px;
-
       img {
         margin: 0 7px;
         width: 27px;

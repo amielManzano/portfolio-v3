@@ -26,8 +26,12 @@
         </h3>
 
         <div class="buttons animate__animated animate__backInRight">
-          <button class="download">Download CV <img :src="download" /></button>
-          <button class="view-portfolio">View Portfolio <img :src="view" /></button>
+          <button class="download" @click="downloadPDF">
+            Download CV <img :src="download" />
+          </button>
+          <button class="view-portfolio" @click="() => $router.push('/projects')">
+            View Portfolio <img :src="view" />
+          </button>
         </div>
       </div>
     </div>
@@ -57,6 +61,15 @@ export default defineComponent({
       download: require("@/assets/download.svg"),
       view: require("@/assets/view.svg"),
     };
+  },
+  methods: {
+    downloadPDF() {
+      const pdfUrl = "AmielManzanoResume.pdf";
+      const anchor = document.createElement("a");
+      anchor.href = pdfUrl;
+      anchor.download = "AmielManzanoResume.pdf";
+      anchor.click();
+    },
   },
 });
 </script>
@@ -156,29 +169,32 @@ export default defineComponent({
 @media (max-width: 768px) {
   .home {
     grid-template-columns: 1fr;
+    justify-items: center;
 
     .left-side {
-      height: 60dvh;
-      width: 100%;
+      height: auto;
+      width: 80%;
+      margin-top: 100px;
     }
 
     .right-side {
       .container {
-        padding: 50px 36px 36px 36px;
+        padding: 30px 36px 36px 36px;
         width: 100%;
 
         .name {
-          font-size: 17vw;
+          font-size: 14vw;
         }
 
         .sub-name {
+          margin-top: 5px;
           font-size: 3.2vw;
         }
 
         .buttons {
           display: flex;
           justify-content: center;
-          margin-top: 46px;
+          margin-top: 26px;
 
           button {
             margin: 0 5px;
