@@ -247,24 +247,24 @@ export default defineComponent({
       experiences: [
         {
           year: "Mar 2021 - Feb 2022",
-          title: "Junior Level",
+          title: "Junior",
           subtitle: "Software Engineer",
           company: "Nexseed Inc.",
           task: "I worked on web development projects like Shopify stores, Shopify apps, and other front-end tasks. During the onboarding training, I was tasked to be the project manager / frontend engineer .",
         },
         {
           year: "Feb 2022 - Nov 2022",
-          title: "Mid Level, Team Lead",
+          title: "Lead",
           subtitle: "Software Engineer",
           company: "Nexseed Inc.",
-          task: "After my 1 year with the company, I was promoted to be the team leader for the GVO project. I am juggling my tasks both in handling the team as well as being a frontend engineer.",
+          task: "After my 1 year with the company, I was promoted to be the leader of the GVO project. I am juggling my tasks both in handling the team as well as being a frontend engineer.",
         },
         {
           year: "Nov 2022 - Present",
-          title: "Mid Level, Team Lead",
+          title: "Lead",
           subtitle: "Software Engineer",
           company: "Seed Tech Philippines",
-          task: "I am working as a team leader for 2 projects namely, GVO and Tomorrowland. I am also working as a fronted engineer aside from being a team leader.",
+          task: "I am working as a lead software engineer for 2 projects namely, GVO and Tomorrowland. ",
         },
       ],
       skills: [
