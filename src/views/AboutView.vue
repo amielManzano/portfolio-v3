@@ -161,7 +161,7 @@ export default defineComponent({
       initialScrollX: 0,
       cards: [
         {
-          title: "16 Completed Projects",
+          title: "17 Completed Projects",
           subTitle:
             "These projects include personal works as well as publicly available company related projects.",
           image: require("@/assets/aboutme/card1.svg"),

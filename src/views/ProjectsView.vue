@@ -5,7 +5,7 @@
       <div class="sub-title-container">
         <p class="sub-title animate__animated animate__backInDown">
           Welcome to my Projects Page, where you will find a meticulously
-          curated selection of more than 16 diverse and innovative undertakings.
+          curated selection of more than 17 diverse and innovative undertakings.
           Each project represents a testament to my commitment to excellence and
           showcases a versatile skill set honed through years of dedicated work.
         </p>
@@ -230,6 +230,14 @@ export default defineComponent({
           link: "https://aemphotography.github.io/website/",
           image: require("@/assets/projects/photographyV1.png"),
           labels: ["HTML", "CSS", "Javascript", "Github"],
+        },
+        {
+          title: "Gym App",
+          subTitle:
+            "Unleash your potential with a gym app that tracks, motivates, and transforms every step of your fitness journey. Your goals, your way!",
+          link: "https://aemgymapp.vercel.app/",
+          image: require("@/assets/projects/gymapp.png"),
+          labels: ["React", "Typescript", "Tailwind", "Framer Motion"],
         },
         {
           title: "Design Project",
