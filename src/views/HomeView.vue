@@ -22,7 +22,7 @@
         <h1 class="name animate__animated animate__backInRight">Amiel</h1>
         <h1 class="name animate__animated animate__backInRight">Manzano</h1>
         <h3 class="sub-name animate__animated animate__backInRight">
-          Mid Level Software Engineer | Team Leader
+          Lead Software Engineer
         </h3>
 
         <div class="buttons animate__animated animate__backInRight">

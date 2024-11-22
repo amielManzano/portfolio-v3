@@ -9,12 +9,7 @@
         <h2 class="title">Personal Information</h2>
         <h1 class="subtitle">About Me</h1>
         <p class="description">
-          Experienced software engineer and team leader passionate about driving
-          innovation through technology. With a strong background in fronted
-          development and agile methodologies, I excel in leading
-          cross-functional teams to deliver high-quality software products. I
-          combine technical expertise with strategic problem-solving to exceed
-          client expectations.
+         Experienced Lead Software Engineer dedicated to advancing technology through innovation. With a solid background in frontend development and agile methodologies, I lead cross-functional teams to deliver high-quality software, combining technical skills with strategic problem-solving to make a meaningful impact.
         </p>
         <div class="cards">
           <div class="card" v-for="card in cards" :key="card.title">
