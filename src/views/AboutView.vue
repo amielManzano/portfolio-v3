@@ -200,6 +200,7 @@ export default defineComponent({
         require("@/assets/awards/a3.jpg"),
         require("@/assets/awards/a4.jpg"),
         require("@/assets/awards/a5.jpg"),
+        require("@/assets/awards/mvp_dec_2024.jpg"),
         require("@/assets/awards/a6.jpg"),
         require("@/assets/awards/a7.jpg"),
         require("@/assets/awards/a8.jpg"),
