@@ -81,7 +81,7 @@ export default defineComponent({
 
       .name {
         color: var(--light-blue);
-        font-family: "Manrope", sans-serif;
+        font-family: "DM Serif Display", serif;
         font-size: 6.8vw;
         font-weight: 400;
         letter-spacing: -0.035em;
@@ -422,7 +422,7 @@ export default defineComponent({
   .work-panel-header span:last-child { color: var(--light-blue); }
   .work-panel-intro { display: flex; align-items: flex-start; gap: 18px; padding: 42px 0 48px; }
   .panel-index { color: var(--light-blue); font: 700 10px/1 "Manrope", sans-serif; }
-  .work-panel-intro h2 { color: white; font: 500 clamp(36px, 4vw, 62px)/.9 "Manrope", sans-serif; letter-spacing: 0; }
+  .work-panel-intro h2 { color: white; font: 500 clamp(36px, 4vw, 62px)/.9 "DM Serif Display", serif; letter-spacing: -.04em; }
   .work-panel-intro h2 em { color: var(--light-blue); font-style: italic; }
   .work-panel-intro p { max-width: 205px; margin-top: 16px; color: var(--washed-white); font: 500 10px/1.6 "Manrope", sans-serif; }
   .service-list { border-top: 1px solid rgba(102, 252, 241, .2); }
@@ -452,7 +452,7 @@ export default defineComponent({
   .visual-mark { position: absolute; z-index: 1; top: 21%; right: 13%; color: transparent; font: 800 clamp(80px, 12vw, 190px)/.8 "Manrope", sans-serif; letter-spacing: -.12em; -webkit-text-stroke: 1px rgba(102, 252, 241, .44); }
   .visual-caption { position: absolute; z-index: 2; right: 12%; bottom: 14%; display: flex; flex-direction: column; gap: 8px; text-align: right; }
   .visual-caption span, .visual-caption small { color: var(--light-blue); font: 700 8px/1.2 "Manrope", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
-  .visual-caption strong { color: white; font: 400 clamp(24px, 3vw, 44px)/.95 "Manrope", sans-serif; }
+  .visual-caption strong { color: white; font: 400 clamp(24px, 3vw, 44px)/.95 "DM Serif Display", serif; }
   .visual-caption small { color: var(--washed-white); font-size: 7px; }
   .hero-content { z-index: 3; }
   .hero-footerline { z-index: 3; }
@@ -717,7 +717,7 @@ export default defineComponent({
   .name > span {
     color: transparent;
     font-size: .76em;
-    font-family: "Manrope", sans-serif;
+    font-family: "Urbanist", sans-serif;
     font-weight: 800;
     text-shadow: none;
     -webkit-text-stroke: 1px rgba(196, 198, 200, .72);
