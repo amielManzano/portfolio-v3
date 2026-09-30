@@ -11,7 +11,7 @@ import "animate.css";
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Urbanist:wght@400;500;600;700;800&display=swap");
 
 :root {
   --black: #0b0c10;
@@ -23,7 +23,25 @@ import "animate.css";
 
 * {
   margin: 0;
-  font-family: Noto Sans;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
 }
 
 #app {
@@ -36,7 +54,7 @@ import "animate.css";
 }
 
 html {
-  background: linear-gradient(180deg, #0b0c10 70.53%, #0e2d2c 92.71%);
+  background: var(--black);
   background-repeat: no-repeat;
   min-height: 100dvh;
   height: auto;
