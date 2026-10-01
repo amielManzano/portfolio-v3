@@ -69,12 +69,12 @@
                 ? "DESIGN"
                 : "DEVELOPMENT"
             }}</span>
-            <span>{{ project.labels.length }} TECHNOLOGIES</span>
+            <span v-if="project.labels.length">{{ project.labels.length }} TECHNOLOGIES</span>
           </div>
           <span v-if="project.status" class="project-status">{{ project.status }}</span>
           <h2>{{ project.title }}</h2>
           <p class="project-description">{{ project.subTitle }}</p>
-          <ul class="technology-list" aria-label="Technologies used">
+          <ul v-if="project.labels.length" class="technology-list" aria-label="Technologies used">
             <li v-for="label in project.labels" :key="label">{{ label }}</li>
           </ul>
           <a

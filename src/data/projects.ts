@@ -18,6 +18,15 @@ export const projects: Project[] = [
     category: "BUILD",
   },
   {
+    title: "Badminton Queueing App",
+    subTitle:
+      "A badminton queue management app for organizing players, live courts, match history, and payments. Supports skill-based matching with fair rotation, auto-assignment, and manual match setup.",
+    link: "https://stpqueue.vercel.app/",
+    image: "https://stpqueue.vercel.app/assets/logo1-KJkLwfUJ.png",
+    labels: ["React", "Firebase"],
+    category: "BUILD",
+  },
+  {
     title: "Prock DX",
     subTitle:
       "Providing one-stop functionality necessary for the apparel industry, such as product production using 3D, merchandising, demand forecasting, and PR. Prock has become Japan's first all-purpose platform.",
