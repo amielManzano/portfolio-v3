@@ -79,7 +79,10 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span>OPEN PROJECT</span><span aria-hidden="true">↗</span>
+            <span>OPEN PROJECT</span>
+            <svg class="project-link-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path d="M9 3h4v4M13 3 7 9M11 9v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h3" />
+            </svg>
           </a>
         </div>
       </article>
@@ -831,9 +834,15 @@ export default defineComponent({
     letter-spacing: 0.08em;
     text-decoration: none;
   }
-  .project-link span:last-child {
-    font-size: 15px;
-    font-weight: 400;
+  .project-link-icon {
+    width: 14px;
+    height: 14px;
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
   }
   .empty-state {
     grid-column: 1 / -1;
