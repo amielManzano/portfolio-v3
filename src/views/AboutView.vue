@@ -246,7 +246,7 @@ export default defineComponent({
           subtitle: "Software Engineer",
           teamLeader: true,
           company: "Seed Tech Philippines.",
-          task: "Project Management · Front-end Engineering · Team management · AWS Infrastructure Management",
+          task: "Project Management · Front-end Engineering · Team Management · AWS Infrastructure Management",
         },
         {
           year: "Mar 2021 - Feb 2022",
