@@ -1300,10 +1300,10 @@ export default defineComponent({
   .about-page .experience-row .record-main h3 { max-width: 100%; margin: 0 auto; font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; }
   .about-page .experience-row .record-org { font-size: 9px; }
   .about-page .experience-row .record-skills { gap: 6px; }
-  .about-page .education-row { grid-template-columns: minmax(0, 1fr) auto; padding: 15px 12px; }
+  .about-page .education-row { grid-template-columns: minmax(0, 1fr) auto; row-gap: 4px; padding: 15px 12px; }
   .about-page .education-row .record-time { position: static; grid-column: 1; grid-row: 1; }
-  .about-page .education-row .record-main { grid-column: 1 / -1; grid-row: 2; padding-top: 8px; text-align: center; }
-  .about-page .education-row .institution-logo { position: static; grid-column: 2; grid-row: 1; width: 34px; height: 34px; }
+  .about-page .education-row .record-main { grid-column: 1 / -1; grid-row: 2; padding-top: 0; text-align: center; }
+  .about-page .education-row .institution-logo { position: static; grid-column: 2; grid-row: 1; width: 24px; height: 24px; }
   .about-page .education-row .record-description { text-align: center; }
   .about-page .record-row::before { top: 19px; left: -25px; width: 9px; height: 9px; }
   .about-page .record-row::after { top: 23px; left: -16px; width: 16px; }
