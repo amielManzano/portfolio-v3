@@ -24,9 +24,9 @@
         </aside>
       </div>
       <div class="profile-stats">
-        <div><strong>17+</strong><span>PROJECTS DELIVERED</span></div>
-        <div><strong>3+</strong><span>YEARS EXPERIENCE</span></div>
-        <div><strong>09</strong><span>AWARDS EARNED</span></div>
+        <div><strong>{{ projectCount }}</strong><span>PROJECTS DELIVERED</span></div>
+        <div><strong>{{ yearsExperience }}+</strong><span>YEARS EXPERIENCE</span></div>
+        <div><strong>{{ awards.length }}</strong><span>AWARDS EARNED</span></div>
       </div>
     </section>
 
@@ -37,16 +37,18 @@
         <span>2021 — PRESENT</span>
       </header>
       <div class="record-list">
-        <article v-for="(job, index) in experiences" :key="job.year" class="record-row">
+        <article v-for="(job, index) in experiences" :key="job.year" class="record-row experience-row">
           <div class="record-time">
             <span class="record-label">TIMEFRAME</span>
             <p class="record-date">{{ job.year }}</p>
           </div>
           <div class="record-main">
             <span class="record-label">POSITION</span>
-            <h3>{{ job.subtitle }} <span>/ {{ job.title }}</span></h3>
+            <h3>{{ job.title }} {{ job.subtitle }}<span v-if="job.teamLeader" class="record-role-accent"> / Team Leader</span></h3>
             <p class="record-org">{{ job.company }}</p>
-            <p class="record-description">{{ job.task }}</p>
+            <ul class="record-skills" aria-label="Skills">
+              <li v-for="skill in job.task.split(' · ')" :key="skill">{{ skill }}</li>
+            </ul>
           </div>
           <span class="record-index">EXP / {{ String(index + 1).padStart(2, '0') }}</span>
         </article>
@@ -80,19 +82,31 @@
     <section class="about-section recognition-section">
       <header class="section-heading">
         <span>03 / RECOGNITION</span>
-        <h2>AWARDS & CERTIFICATES</h2>
-        <span>{{ awards.length + certificates.length }} ITEMS</span>
+        <h2>AWARDS</h2>
+        <span>{{ awards.length }} ITEMS</span>
       </header>
       <div class="award-grid" aria-label="Awards">
         <figure v-for="(award, index) in awards" :key="award" class="award-item">
-          <img :src="award" :alt="`Award ${index + 1}`" loading="lazy" />
+            <button class="image-button" type="button" :aria-label="`View award ${index + 1} full size`" @click="openImage(award, 'Award ' + (index + 1), $event)">
+            <img :src="award" :alt="`Award ${index + 1}`" loading="lazy" />
+          </button>
           <figcaption>AWARD / {{ String(index + 1).padStart(2, '0') }}</figcaption>
         </figure>
       </div>
+    </section>
+
+    <section class="about-section certificates-section">
+      <header class="section-heading">
+        <span>04 / LEARNING</span>
+        <h2>CERTIFICATES</h2>
+        <span>{{ certificates.length }} ITEMS</span>
+      </header>
       <div class="certificate-grid">
         <article v-for="(certificate, index) in certificates" :key="certificate.label" class="certificate-item">
           <span class="certificate-index">CERT / {{ String(index + 1).padStart(2, '0') }}</span>
-          <img :src="certificate.img" :alt="certificate.label" loading="lazy" />
+          <button class="image-button" type="button" :aria-label="`View ${certificate.label} full size`" @click="openImage(certificate.img, certificate.label, $event)">
+            <img :src="certificate.img" :alt="certificate.label" loading="lazy" />
+          </button>
           <h3>{{ certificate.label }}</h3>
         </article>
       </div>
@@ -100,7 +114,7 @@
 
     <section class="about-section skills-section">
       <header class="section-heading">
-        <span>04 / TOOLKIT</span>
+        <span>05 / TOOLKIT</span>
         <h2>TECHNOLOGIES</h2>
         <span>{{ skills.length }} SKILLS</span>
       </header>
@@ -112,16 +126,39 @@
         </li>
       </ul>
     </section>
+
+    <div
+      v-if="selectedImage"
+      ref="imageDialog"
+      class="image-modal"
+      role="dialog"
+      aria-modal="true"
+      :aria-label="selectedImage.label"
+      tabindex="-1"
+      @click.self="closeImage"
+      @keydown.esc.stop.prevent="closeImage"
+    >
+      <figure class="image-modal-content">
+        <div class="image-modal-frame">
+          <img :src="selectedImage.src" :alt="selectedImage.label" />
+        </div>
+        <figcaption>{{ selectedImage.label }}</figcaption>
+      </figure>
+    </div>
   </main>
 </template>
 
 <script>
 import { defineComponent } from "vue";
+import { projects } from "@/data/projects";
 
 export default defineComponent({
   name: "AboutView",
   data() {
     return {
+      experienceStartDate: "2021-03-01",
+      selectedImage: null,
+      imageTrigger: null,
       education: [
         {
           year: "2015 - 2020",
@@ -143,6 +180,7 @@ export default defineComponent({
         },
       ],
       awards: [
+        require("@/assets/awards/a11.jpg"),
         require("@/assets/awards/a1.jpg"),
         require("@/assets/awards/a2.jpg"),
         require("@/assets/awards/a3.jpg"),
@@ -156,8 +194,12 @@ export default defineComponent({
       ],
       certificates: [
         {
+          label: "AWS Certified Developer - Associate",
+          img: require("@/assets/certificates/devassoc.jpg"),
+        },
+        {
           label: "AWS Certified Cloud Practitioner",
-          img: require("@/assets/certificates/aws.png"),
+          img: require("@/assets/certificates/cloudprac.jpg"),
         },
         {
           label: "Certified Computer Engineer",
@@ -190,25 +232,28 @@ export default defineComponent({
       ],
       experiences: [
         {
+          year: "Feb 2025 - Present",
+          title: "Senior",
+          subtitle: "Software Engineer",
+          teamLeader: true,
+          company:
+            "Seed Tech Philippines",
+          task: "Project Management · Front-end Engineering · Team Management · AWS Infrastructure Management",
+        },
+        {
+          year: "Feb 2022 - Feb 2025",
+          title: "Mid",
+          subtitle: "Software Engineer",
+          teamLeader: true,
+          company: "Seed Tech Philippines.",
+          task: "Project Management · Front-end Engineering · Team management · AWS Infrastructure Management",
+        },
+        {
           year: "Mar 2021 - Feb 2022",
           title: "Junior",
           subtitle: "Software Engineer",
-          company: "Nexseed Inc.",
-          task: "I worked on web development projects like Shopify stores, Shopify apps, and other front-end tasks. During the onboarding training, I was tasked to be the project manager / frontend engineer .",
-        },
-        {
-          year: "Feb 2022 - Nov 2022",
-          title: "Lead",
-          subtitle: "Software Engineer",
-          company: "Nexseed Inc.",
-          task: "After my 1 year with the company, I was promoted to be the leader of the GVO project. I am juggling my tasks both in handling the team as well as being a frontend engineer.",
-        },
-        {
-          year: "Nov 2022 - Present",
-          title: "Lead",
-          subtitle: "Software Engineer",
           company: "Seed Tech Philippines",
-          task: "I am working as a lead software engineer for 2 projects namely, GVO and Tomorrowland. ",
+          task: "Full-Stack Development · Shopify · AWS Infrastructure Management",
         },
       ],
       skills: [
@@ -287,6 +332,35 @@ export default defineComponent({
         },
       ],
     };
+  },
+  computed: {
+    yearsExperience() {
+      const [year, month, day] = this.experienceStartDate.split("-").map(Number);
+      const startDate = new Date(year, month - 1, day);
+      const today = new Date();
+      let years = today.getFullYear() - startDate.getFullYear();
+      const anniversary = new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate());
+
+      if (today < anniversary) years -= 1;
+      return years;
+    },
+    projectCount() {
+      return projects.length;
+    },
+  },
+  methods: {
+    openImage(src, label, event) {
+      this.imageTrigger = event.currentTarget;
+      this.selectedImage = { src, label };
+    },
+    closeImage() {
+      const trigger = this.imageTrigger;
+      this.selectedImage = null;
+      this.imageTrigger = null;
+      this.$nextTick(() => {
+        if (trigger) trigger.focus();
+      });
+    },
   },
 });
 </script>
@@ -1126,9 +1200,11 @@ export default defineComponent({
   .profile-stats span { color: var(--semi-dark-green); font: 700 7px/1.4 "Manrope", sans-serif; letter-spacing: .1em; }
 
   .about-section { padding-top: 66px; }
-  .section-heading { display: grid; grid-template-columns: 115px minmax(0, 1fr) auto; padding-bottom: 15px; border-bottom: 1px solid rgba(102, 252, 241, .24); }
+  .section-heading { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; min-height: 42px; padding: 4px 90px 15px; border-bottom: 1px solid rgba(102, 252, 241, .24); }
+  .section-heading span:first-child { position: absolute; top: 6px; left: 0; }
+  .section-heading span:last-child { position: absolute; top: 6px; right: 0; text-align: right; }
   .section-heading span:first-child { color: var(--light-blue); }
-  .section-heading h2 { color: var(--washed-white); font: 700 19px/1.2 "Manrope", sans-serif; letter-spacing: 0; }
+  .section-heading h2 { width: 100%; color: var(--washed-white); font: 700 25px/1.1 "Urbanist", sans-serif; letter-spacing: 0; text-align: center; }
 
   .record-list { position: relative; display: grid; gap: 14px; margin: 18px 0 0 4px; padding-left: 52px; }
   .record-list::before { position: absolute; top: 0; bottom: 0; left: 9px; width: 1px; background: linear-gradient(180deg, transparent, rgba(102, 252, 241, .46) 8%, rgba(102, 252, 241, .22) 92%, transparent); content: ""; }
@@ -1139,17 +1215,29 @@ export default defineComponent({
   .record-time { display: flex; flex-direction: column; gap: 8px; }
   .record-label { color: var(--semi-dark-green); font: 700 6px/1.2 "Manrope", sans-serif; letter-spacing: .14em; }
   .record-date { color: var(--light-blue); font: 700 10px/1.5 "Manrope", sans-serif; letter-spacing: .04em; }
-  .record-main h3 { color: var(--washed-white); font: 700 18px/1.35 "Manrope", sans-serif; }
-  .record-main h3 span { color: var(--light-blue); font-weight: 500; }
+  .experience-row { grid-template-columns: minmax(0, 1fr) }
+  .experience-row .record-time { position: absolute; top: 18px; right: 90px; left: 18px; flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 5px 8px; }
+  .experience-row .record-index { position: absolute; top: 18px; right: 18px; }
+  .experience-row .record-main { grid-column: 1; text-align: center; }
+  .education-row { grid-template-columns: minmax(0, 1fr)}
+  .education-row .record-time { position: absolute; top: 18px; right: 76px; left: 18px; flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 5px 8px; }
+  .education-row .record-main { grid-column: 1; text-align: center; }
+  .education-row .institution-logo { position: absolute; top: 12px; right: 18px; width: 38px; height: 38px; }
+  .education-row .record-description { margin-right: auto; margin-left: auto; text-align: center; }
+  .record-main h3 { color: var(--washed-white); font: 700 18px/1.35 "Urbanist", sans-serif; }
+  .record-role-accent { color: var(--light-blue); font-weight: 600; }
   .record-org { margin-top: 4px; color: var(--light-blue); font: 600 10px/1.5 "Manrope", sans-serif; }
-  .record-description { max-width: 760px; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(196, 198, 200, .1); color: rgba(196, 198, 200, .68); font: 400 11px/1.7 "Manrope", sans-serif; text-align: justify; }
+  .record-description { max-width: 760px; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(196, 198, 200, .1); color: rgba(196, 198, 200, .68); font: 400 11px/1.7 "Manrope", sans-serif; text-align: left; }
+  .record-skills { display: flex; max-width: 760px; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 12px auto 0; padding: 10px 0 0; border-top: 1px solid rgba(196, 198, 200, .1); list-style: none; }
+  .record-skills li { padding: 5px 8px; border: 1px solid rgba(102, 252, 241, .2); background: rgba(102, 252, 241, .04); color: rgba(196, 198, 200, .82); font: 600 9px/1.35 "Manrope", sans-serif; }
   .record-index { justify-self: end; padding: 5px 6px; border: 1px solid rgba(102, 252, 241, .14); color: var(--semi-dark-green); font: 700 6px/1.2 "Manrope", sans-serif; letter-spacing: .1em; white-space: nowrap; }
   .record-degree { margin-top: 9px; color: var(--washed-white); font: 600 11px/1.5 "Manrope", sans-serif; }
   .institution-logo { justify-self: end; width: 42px; height: 42px; object-fit: contain; opacity: .82; }
 
-  .recognition-section .section-heading { margin-bottom: 18px; }
+  .recognition-section .section-heading, .certificates-section .section-heading { margin-bottom: 18px; }
   .award-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
   .award-item { min-width: 0; margin: 0; overflow: hidden; border: 1px solid rgba(102, 252, 241, .16); background: #101719; }
+  .image-button { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
   .award-item img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
   .award-item figcaption { padding: 8px; color: var(--semi-dark-green); font: 700 6px/1 "Manrope", sans-serif; letter-spacing: .1em; }
 
@@ -1158,6 +1246,12 @@ export default defineComponent({
   .certificate-index { display: block; margin-bottom: 9px; color: var(--semi-dark-green); font: 700 6px/1 "Manrope", sans-serif; letter-spacing: .1em; }
   .certificate-item img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #101719; }
   .certificate-item h3 { margin-top: 9px; color: var(--washed-white); font: 600 9px/1.4 "Manrope", sans-serif; }
+
+  .image-modal { position: fixed; z-index: 1000; inset: 0; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(0, 0, 0, .94); }
+  .image-modal-content { display: flex; width: fit-content; max-width: 100%; max-height: 100%; flex-direction: column; align-items: center; gap: 12px; margin: 0; }
+  .image-modal-frame { display: flex; max-width: 100%; }
+  .image-modal-content img { display: block; max-width: min(1000px, calc(100vw - 144px)); max-height: calc(100vh - 120px); object-fit: contain; }
+  .image-modal-content figcaption { color: var(--washed-white); font: 600 11px/1.4 "Manrope", sans-serif; text-align: center; }
 
   .skill-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
   .skill-item { position: relative; display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 9px; align-items: center; min-height: 48px; padding: 10px; overflow: hidden; border: 1px solid rgba(102, 252, 241, .15); background: rgba(11, 12, 16, .48); }
@@ -1190,18 +1284,34 @@ export default defineComponent({
   .about-page .profile-stats strong { font-size: 20px; }
   .about-page .profile-stats span { font-size: 6px; }
   .about-page .about-section { padding-top: 44px; }
-  .about-page .section-heading { grid-template-columns: 72px minmax(0, 1fr); gap: 6px 12px; }
+  .about-page .section-heading { grid-template-columns: minmax(0, 1fr); min-height: 34px; gap: 0; padding: 2px 62px 12px; }
   .about-page .section-heading h2 { font-size: 14px; }
-  .about-page .section-heading span:last-child { grid-column: 2; }
+  .about-page .section-heading span:first-child, .about-page .section-heading span:last-child { top: 4px; }
   .about-page .record-list { gap: 11px; margin-left: 2px; padding-left: 30px; }
   .about-page .record-list::before { left: 9px; }
   .about-page .record-row { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 15px 12px; }
+  .about-page .experience-row { grid-template-columns: minmax(0, 1fr) auto; padding: 15px 12px; }
+  .about-page .experience-row .record-time { position: static; grid-column: 1; grid-row: 1; flex-direction: column; align-items: flex-start; gap: 3px; }
+  .about-page .experience-row .record-time .record-label { padding-right: 0; border-right: 0; }
+  .about-page .experience-row .record-date { max-width: 100%; overflow-wrap: anywhere; }
+  .about-page .experience-row .record-index { position: static; grid-column: 2; grid-row: 1; align-self: start; }
+  .about-page .experience-row .record-main > .record-label { display: none; }
+  .about-page .experience-row .record-main { grid-column: 1 / -1; grid-row: 2; padding-top: 8px; }
+  .about-page .experience-row .record-main h3 { max-width: 100%; margin: 0 auto; font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; }
+  .about-page .experience-row .record-org { font-size: 9px; }
+  .about-page .experience-row .record-skills { gap: 6px; }
+  .about-page .education-row { grid-template-columns: minmax(0, 1fr) auto; padding: 15px 12px; }
+  .about-page .education-row .record-time { position: static; grid-column: 1; grid-row: 1; }
+  .about-page .education-row .record-main { grid-column: 1 / -1; grid-row: 2; padding-top: 8px; text-align: center; }
+  .about-page .education-row .institution-logo { position: static; grid-column: 2; grid-row: 1; width: 34px; height: 34px; }
+  .about-page .education-row .record-description { text-align: center; }
   .about-page .record-row::before { top: 19px; left: -25px; width: 9px; height: 9px; }
   .about-page .record-row::after { top: 23px; left: -16px; width: 16px; }
-  .about-page .record-time { grid-column: 1; grid-row: 1; gap: 5px; }
-  .about-page .record-date { font-size: 9px; }
+  .about-page .record-time { grid-column: 1; grid-row: 1; min-width: 0; flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 5px 8px; }
+  .about-page .record-time .record-label { flex: none; padding-right: 8px; border-right: 1px solid rgba(102, 252, 241, .24); }
+  .about-page .record-date { min-width: 0; font-size: 9px; line-height: 1.35; white-space: normal; }
   .about-page .record-main { grid-column: 1 / -1; grid-row: 2; }
-  .about-page .record-index, .about-page .institution-logo { grid-column: 2; grid-row: 1; }
+  .about-page .record-index, .about-page .institution-logo { grid-column: 2; grid-row: 1; align-self: start; }
   .about-page .record-main h3 { font-size: 15px; }
   .about-page .record-description { font-size: 9px; }
   .about-page .award-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
