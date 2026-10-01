@@ -20,7 +20,7 @@
             <li>Product delivery</li>
             <li>Team leadership</li>
           </ul>
-          <span class="location-label">BASED IN BACOLOD CITY, PH</span>
+          <span class="location-label">BASED IN CEBU CITY, PH</span>
         </aside>
       </div>
       <div class="profile-stats">
