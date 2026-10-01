@@ -345,7 +345,7 @@ export default defineComponent({
       return years;
     },
     projectCount() {
-      return projects.length;
+      return projects.filter((project) => project.status !== "IN DEVELOPMENT").length;
     },
   },
   methods: {

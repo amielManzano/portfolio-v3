@@ -1,4 +1,13 @@
-export const projects = [
+interface Project {
+  title: string;
+  subTitle: string;
+  link: string;
+  image: string;
+  labels: string[];
+  category?: "BUILD" | "DESIGN";
+}
+
+export const projects: Project[] = [
   {
     title: "Mice",
     subTitle:
@@ -6,6 +15,7 @@ export const projects = [
     link: "https://www.jtbapac.com/solutions/mice.html",
     image: require("@/assets/projects/jtb.png"),
     labels: ["ReactJS", "Java", "AWS", "Figma"],
+    category: "BUILD",
   },
   {
     title: "Prock DX",
@@ -16,7 +26,7 @@ export const projects = [
     labels: ["NuxtJS", "Laravel", "AWS", "Firebase"],
   },
   {
-    title: "Photography UI Design",
+    title: "Photography V2 UI Design",
     subTitle:
       "Elevate your visual storytelling with a UI design that puts your photography in the spotlight, capturing every moment with precision and style.",
     link: "https://www.figma.com/file/XcL4ynbdAcSYMNBB7dIJFm/Photography-Website?type=design&node-id=0-1&mode=design&t=TYqlgRjZD1ERV0xp-0",
@@ -113,6 +123,7 @@ export const projects = [
     link: "https://amiel-manzano.vercel.app/",
     image: require("@/assets/projects/portfolioV1.png"),
     labels: ["Nextjs", "Vercel", "Bootstrap"],
+    category: "DESIGN",
   },
   {
     title: "Nexstore",
@@ -161,6 +172,7 @@ export const projects = [
     link: "https://aemgymapp.vercel.app/",
     image: require("@/assets/projects/gymapp.png"),
     labels: ["React", "Typescript", "Tailwind", "Framer Motion"],
+    category: "DESIGN",
   },
   {
     title: "Design Project",
@@ -169,5 +181,6 @@ export const projects = [
     link: "https://www.facebook.com/groups/256184368395441/permalink/520636595283549/",
     image: require("@/assets/projects/designProject.jpg"),
     labels: ["HTML", "CSS", "Javascript", "PHP", "C", "Microcontrollers"],
+    category: "BUILD",
   },
 ];

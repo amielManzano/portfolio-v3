@@ -61,13 +61,17 @@
         <div class="project-content">
           <div class="project-meta">
             <span>{{
-              project.labels.includes("Figma") ||
-              project.title.toLowerCase().includes("design")
+              project.category === "BUILD"
+                ? "DEVELOPMENT"
+                : project.category === "DESIGN" ||
+                  project.labels.includes("Figma") ||
+                  project.title.toLowerCase().includes("design")
                 ? "DESIGN"
                 : "DEVELOPMENT"
             }}</span>
             <span>{{ project.labels.length }} TECHNOLOGIES</span>
           </div>
+          <span v-if="project.status" class="project-status">{{ project.status }}</span>
           <h2>{{ project.title }}</h2>
           <p class="project-description">{{ project.subTitle }}</p>
           <ul class="technology-list" aria-label="Technologies used">
@@ -117,14 +121,17 @@ export default defineComponent({
           link: string;
           image: string;
           labels: string[];
+          category?: "BUILD" | "DESIGN";
         }>;
       };
       const query = page.searchQuery.trim().toLowerCase();
 
       return page.projects.filter((project) => {
         const isDesign =
-          project.title.toLowerCase().includes("design") ||
-          project.labels.includes("Figma");
+          project.category === "DESIGN" ||
+          (!project.category &&
+            (project.title.toLowerCase().includes("design") ||
+              project.labels.includes("Figma")));
         const matchesFilter =
           page.activeFilter === "ALL" ||
           (page.activeFilter === "DESIGN" ? isDesign : !isDesign);
@@ -793,6 +800,15 @@ export default defineComponent({
   }
   .project-meta span:first-child {
     color: var(--light-blue);
+  }
+  .project-status {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 6px;
+    border: 1px solid rgba(102, 252, 241, 0.28);
+    color: var(--light-blue);
+    font: 700 7px/1 "Manrope", sans-serif;
+    letter-spacing: 0.08em;
   }
   .project-content h2 {
     margin-top: 10px;
